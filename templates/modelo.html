@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block titulo %}El modelo{% endblock %}
+{% block contenido %}
+<section class="intro">
+  <h1>Sobre el modelo</h1>
+  <p>Resumen del modelo seleccionado en el análisis (notebook del proyecto) y de su desempeño.</p>
+</section>
+
+<div class="rejilla">
+  <section class="tarjeta">
+    <h2>Modelo seleccionado</h2>
+    <dl class="lista-datos">
+      <dt>Algoritmo</dt><dd>{{ meta.modelo }}</dd>
+      {% for k, v in meta.hiperparametros.items() %}<dt>{{ k }}</dt><dd>{{ v }}</dd>{% endfor %}
+      <dt>Umbral de decisión</dt><dd>{{ '%.2f' % meta.umbral }}</dd>
+      <dt>Variables usadas</dt><dd>{{ (meta.variables_numericas + meta.variables_categoricas) | map('replace', '_', ' ') | join(', ') }}</dd>
+      <dt>Datos</dt><dd>{{ meta.n_train }} train · {{ meta.n_test }} test</dd>
+    </dl>
+  </section>
+
+  <section class="tarjeta">
+    <h2>Desempeño</h2>
+    <table class="tabla-metricas">
+      <thead><tr><th>Métrica</th><th>K-Fold (K=5)</th><th>Test</th></tr></thead>
+      <tbody>
+        {% for k, v in meta.metricas_test.items() %}
+        <tr>
+          <td>{{ k }}</td>
+          <td>{{ '%.1f' % (meta.metricas_kfold_promedio[k] * 100) }}% <small>± {{ '%.1f' % (meta.metricas_kfold_desv[k] * 100) }}</small></td>
+          <td>{{ '%.1f' % (v * 100) }}%</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="nota">Solo el {{ '%.1f' % (meta.tasa_fraude_global * 100) }}% de las transacciones históricas son fraude,
+      por eso el Accuracy no es una buena medida: se priorizan Sensitivity, Precision, F-Score y ROC-AUC.</p>
+  </section>
+</div>
+
+<section class="tarjeta">
+  <h2>Comparación de modelos candidatos (test, umbral 50%)</h2>
+  <div class="tabla-scroll">
+    <table class="tabla-metricas">
+      <thead><tr><th>Métrica</th>{% for m in meta.comparacion_modelos %}<th>{{ m }}</th>{% endfor %}</tr></thead>
+      <tbody>
+        {% set metricas = (meta.comparacion_modelos.values() | list)[0].keys() %}
+        {% for k in metricas %}
+        <tr><td>{{ k }}</td>{% for m, vals in meta.comparacion_modelos.items() %}<td class="{{ 'destacado' if m == meta.modelo }}">{{ '%.1f' % (vals[k] * 100) }}%</td>{% endfor %}</tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="tarjeta">
+  <h2>Regiones con mayor tasa de fraude histórica</h2>
+  <p class="nota">Regiones con al menos 20 transacciones en los datos de entrenamiento.</p>
+  {% set regiones = meta.tasas_region.items() | selectattr('1.transacciones', 'ge', 20) | sort(attribute='1.tasa_fraude', reverse=True) | list %}
+  <div class="barras">
+    {% for r, d in regiones[:10] %}
+    <div class="barra-fila">
+      <span class="barra-nombre">{{ r }}</span>
+      <div class="barra-pista"><div class="barra-valor" style="width: {{ (d.tasa_fraude / regiones[0][1].tasa_fraude * 100) | round(1) }}%"></div></div>
+      <span class="barra-num">{{ '%.1f' % (d.tasa_fraude * 100) }}%</span>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

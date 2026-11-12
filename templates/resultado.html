@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block titulo %}Resultado{% endblock %}
+{% block contenido %}
+{% set pct = resultado.puntaje * 100 %}
+{% set umbral_pct = meta.umbral * 100 %}
+
+<section class="tarjeta veredicto {{ 'veredicto-fraude' if resultado.es_fraude else 'veredicto-legit' }}">
+  <p class="veredicto-etiqueta">Resultado del modelo</p>
+  <h1>{{ 'Posible FRAUDE' if resultado.es_fraude else 'Transacción LEGÍTIMA' }}</h1>
+  <p class="veredicto-texto">
+    {% if resultado.es_fraude %}
+      Se recomienda <strong>retener la transacción para revisión</strong> antes de autorizar el pago.
+    {% else %}
+      El puntaje de riesgo está bajo el umbral; la transacción puede <strong>autorizarse</strong>.
+    {% endif %}
+  </p>
+
+  <div class="medidor" aria-label="Puntaje de riesgo {{ '%.0f' % pct }} de 100">
+    <div class="medidor-barra"><div class="medidor-relleno riesgo-{{ resultado.riesgo }}" style="width: {{ [pct, 100] | min }}%"></div>
+      <div class="medidor-umbral" style="left: {{ umbral_pct }}%"><span>Umbral {{ '%.0f' % umbral_pct }}</span></div>
+    </div>
+    <div class="medidor-valores">
+      Puntaje de riesgo <strong>{{ '%.0f' % pct }}</strong>/100 ·
+      Riesgo <span class="chip riesgo-{{ resultado.riesgo }}">{{ resultado.riesgo }}</span>
+    </div>
+  </div>
+</section>
+
+{% for a in advertencias %}<div class="alerta alerta-aviso">{{ a }}</div>{% endfor %}
+
+<div class="rejilla">
+  <section class="tarjeta">
+    <h2>Datos evaluados</h2>
+    <dl class="lista-datos">
+      {% for k, v in entrada.items() %}
+      <dt>{{ etiqueta(k) }}</dt><dd>{{ v }}</dd>
+      {% endfor %}
+    </dl>
+  </section>
+
+  <section class="tarjeta">
+    <h2>Contexto histórico</h2>
+    <p class="nota">Tasa de fraude observada en los datos de entrenamiento.</p>
+    <dl class="lista-datos">
+      {% if contexto.region %}
+      <dt>Región {{ contexto.region.valor }}</dt>
+      <dd>{% if contexto.region.tasa_fraude is defined %}{{ '%.1f' % (contexto.region.tasa_fraude * 100) }}% ({{ contexto.region.transacciones }} transacciones){% else %}Sin historial{% endif %}</dd>
+      {% endif %}
+      {% if contexto.postal %}
+      <dt>Código postal {{ contexto.postal.valor }}</dt>
+      <dd>{% if contexto.postal.tasa_fraude is defined %}{{ '%.1f' % (contexto.postal.tasa_fraude * 100) }}% ({{ contexto.postal.transacciones }} transacciones){% else %}Sin historial{% endif %}</dd>
+      {% endif %}
+      <dt>Promedio general</dt><dd>{{ '%.1f' % (contexto.tasa_global * 100) }}%</dd>
+    </dl>
+  </section>
+</div>
+
+<section class="tarjeta">
+  <h2>¿Cómo leer este resultado?</h2>
+  <p>El modelo ({{ meta.modelo }}) entrega un <strong>puntaje de riesgo de 0 a 100</strong>. Si llega a
+     {{ '%.0f' % umbral_pct }} o más, la transacción se marca como posible fraude. Un puntaje entre 50 y
+     {{ '%.0f' % umbral_pct }} indica un riesgo sobre el promedio (riesgo medio).</p>
+  <p>El puntaje <strong>no es una probabilidad</strong>: el modelo se entrenó dando más peso a los fraudes (porque son solo el
+     {{ '%.1f' % (meta.tasa_fraude_global * 100) }}% de los casos), así que sus valores sirven para ordenar el riesgo, no para leerlos
+     como porcentaje. La frecuencia real de fraude se muestra en el contexto histórico.</p>
+  <p>En el conjunto de prueba, con este umbral, el modelo detectó el
+     <strong>{{ '%.0f' % (meta.metricas_test.Sensitivity * 100) }}%</strong> de los fraudes (Sensitivity) y dejó pasar sin
+     alertas al <strong>{{ '%.0f' % (meta.metricas_test.Specificity * 100) }}%</strong> de las transacciones legítimas
+     (Specificity). Es una herramienta de apoyo: las alertas deben revisarse.</p>
+</section>
+
+<p><a class="boton boton-secundario" href="{{ url_for('inicio') }}">← Evaluar otra transacción</a></p>
+{% endblock %}

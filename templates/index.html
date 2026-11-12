@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block titulo %}Predicción{% endblock %}
+{% block contenido %}
+<section class="intro">
+  <h1>Evaluar una transacción</h1>
+  <p>Ingresa los datos de la transacción para estimar su <strong>riesgo de fraude</strong> antes de autorizar el pago.
+     El modelo fue entrenado con {{ "{:,}".format(meta.n_train).replace(",", ".") }} transacciones históricas y,
+     según el análisis, el factor que determina el riesgo es la región de origen.</p>
+</section>
+
+{% if error %}<div class="alerta alerta-error" role="alert">{{ error }}</div>{% endif %}
+
+<form class="tarjeta formulario" method="post" action="{{ url_for('predecir_transaccion') }}" novalidate>
+  <div class="campos">
+    {% for c in campos %}
+    <div class="campo">
+      <label for="{{ c.nombre }}">{{ c.etiqueta }}</label>
+      {% if c.tipo == 'select' %}
+        <select id="{{ c.nombre }}" name="{{ c.nombre }}" required>
+          <option value="" disabled {{ 'selected' if not valores.get(c.nombre) }}>Selecciona…</option>
+          {% for op in c.opciones %}
+          <option value="{{ op }}" {{ 'selected' if valores.get(c.nombre) == op }}>{{ op }}</option>
+          {% endfor %}
+        </select>
+      {% elif c.tipo == 'texto' %}
+        <input id="{{ c.nombre }}" name="{{ c.nombre }}" type="text" list="lista-{{ c.nombre }}"
+               value="{{ valores.get(c.nombre, '') }}" autocomplete="off" required>
+        <datalist id="lista-{{ c.nombre }}">
+          {% for op in c.sugerencias %}<option value="{{ op }}">{% endfor %}
+        </datalist>
+      {% else %}
+        <input id="{{ c.nombre }}" name="{{ c.nombre }}" type="number" step="any"
+               {% if c.min is not none %}min="{{ c.min }}" max="{{ c.max }}"{% endif %}
+               value="{{ valores.get(c.nombre, '') }}" required>
+        {% if c.min is not none %}<small>Rango visto: {{ '%g' % c.min }} a {{ '%g' % c.max }}</small>{% endif %}
+      {% endif %}
+    </div>
+    {% endfor %}
+
+    {% if region_derivada %}
+    <div class="campo">
+      <label>Estado / región</label>
+      <output id="region-derivada" class="derivado">—</output>
+      <small>Se deduce automáticamente del código postal.</small>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="acciones">
+    <button type="submit" class="boton">Evaluar transacción</button>
+    <span class="nota">Se marca como posible fraude si el puntaje de riesgo es
+      {{ '%.0f' % (meta.umbral * 100) }} o más (de 100).</span>
+  </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+{% if region_derivada %}
+<script>
+  const POSTAL_A_REGION = {{ meta.postal_a_region | tojson }};
+  const selectPostal = document.getElementById('CODIGO_POSTAL');
+  const salidaRegion = document.getElementById('region-derivada');
+  function actualizarRegion() {
+    salidaRegion.textContent = POSTAL_A_REGION[selectPostal.value] || '—';
+  }
+  selectPostal.addEventListener('change', actualizarRegion);
+  actualizarRegion();
+</script>
+{% endif %}
+<script src="{{ url_for('static', filename='js/formulario.js') }}"></script>
+{% endblock %}

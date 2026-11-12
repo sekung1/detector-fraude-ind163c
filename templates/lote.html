@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block titulo %}Evaluación por lote{% endblock %}
+{% block contenido %}
+<section class="intro">
+  <h1>Evaluar transacciones por lote</h1>
+  <p>Sube un archivo <strong>.csv</strong> o <strong>.xlsx</strong> con varias transacciones (máximo {{ max_filas }} filas)
+     y descarga el resultado con el puntaje de riesgo (0–100) y la predicción de cada una.</p>
+</section>
+
+{% if error %}<div class="alerta alerta-error" role="alert">{{ error }}</div>{% endif %}
+
+<form class="tarjeta formulario" method="post" enctype="multipart/form-data" action="{{ url_for('lote') }}">
+  <div class="campo">
+    <label for="archivo">Archivo de transacciones</label>
+    <input id="archivo" name="archivo" type="file" accept=".csv,.xlsx" required>
+    <small>Columnas obligatorias: <code>{{ columnas | join('</code>, <code>') | safe }}</code>.
+      Otras columnas se conservan en el resultado pero no se usan.
+      <a href="{{ url_for('ejemplo_lote') }}">Descargar archivo de ejemplo</a>.</small>
+  </div>
+  <div class="acciones">
+    <button type="submit" class="boton">Evaluar archivo</button>
+  </div>
+</form>
+
+{% if resumen %}
+{% for a in advertencias %}<div class="alerta alerta-aviso">{{ a }}</div>{% endfor %}
+<section class="resumen">
+  <div class="tarjeta indicador"><span>{{ resumen.total }}</span>transacciones evaluadas</div>
+  <div class="tarjeta indicador indicador-fraude"><span>{{ resumen.fraudes }}</span>marcadas como posible fraude</div>
+  <div class="tarjeta indicador indicador-medio"><span>{{ resumen.riesgo_medio }}</span>con riesgo medio</div>
+</section>
+
+<section class="tarjeta">
+  <div class="cabecera-seccion">
+    <h2>Resultados {% if resumen.total > 200 %}(200 de mayor riesgo){% endif %}</h2>
+    <a class="boton boton-secundario" download="predicciones_fraude.csv" href="data:text/csv;base64,{{ csv_b64 }}">Descargar CSV completo</a>
+  </div>
+  <div class="tabla-scroll">
+    <table>
+      <thead><tr>{% for c in cabeceras %}<th>{{ c }}</th>{% endfor %}</tr></thead>
+      <tbody>
+        {% for fila in tabla %}
+        <tr class="{{ 'fila-fraude' if fila.PREDICCION == 'FRAUD' }}">
+          {% for c in cabeceras %}
+          <td>{% if c == 'PUNTAJE_RIESGO' %}<strong>{{ '%.0f' % fila[c] }}</strong>{% elif c == 'RIESGO' %}<span class="chip riesgo-{{ fila[c] }}">{{ fila[c] }}</span>{% else %}{{ fila[c] }}{% endif %}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endif %}
+{% endblock %}

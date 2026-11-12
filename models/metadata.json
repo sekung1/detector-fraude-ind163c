@@ -1,0 +1,804 @@
+{
+  "modelo": "Regresión Logística",
+  "hiperparametros": {
+    "C": 0.1,
+    "penalty": "l2"
+  },
+  "umbral": 0.7378,
+  "variables_numericas": [],
+  "variables_categoricas": [
+    "ESTADO_REGION"
+  ],
+  "postal_a_region": {
+    "101": "KR",
+    "102": "KR",
+    "103": "KR",
+    "104": "KR",
+    "105": "KR",
+    "106": "KR",
+    "107": "KR",
+    "108": "KR",
+    "109": "KR",
+    "110": "KR",
+    "111": "KR",
+    "112": "KR",
+    "113": "KR",
+    "114": "KR",
+    "115": "KR",
+    "116": "KR",
+    "117": "KR",
+    "118": "KR",
+    "119": "KR",
+    "120": "KR",
+    "121": "KR",
+    "122": "KR",
+    "123": "KR",
+    "124": "KR",
+    "125": "KR",
+    "127": "LM",
+    "128": "LM",
+    "150": "YO",
+    "151": "YO",
+    "166": "NAO",
+    "190": "SP",
+    "191": "SP",
+    "192": "SP",
+    "193": "SP",
+    "194": "SP",
+    "195": "SP",
+    "196": "SP",
+    "197": "SP",
+    "198": "SP",
+    "308": "BO",
+    "355": "SK",
+    "356": "SK",
+    "362": "RONO",
+    "367": "ROD",
+    "369": "MV",
+    "385": "ROA",
+    "386": "ROI",
+    "390": "RO",
+    "398": "LO",
+    "420": "ROT",
+    "424": "MER",
+    "426": "ROU",
+    "428": "CR",
+    "430": "ROM",
+    "432": "UO",
+    "450": "ROB",
+    "452": "ROB",
+    "453": "ROB",
+    "600": "VO",
+    "601": "VO",
+    "602": "VO",
+    "603": "NNO",
+    "606": "NNO",
+    "607": "NNO",
+    "614": "PO",
+    "625": "TO",
+    "629": "YAO",
+    "630": "NO",
+    "634": ",O",
+    "644": "OO",
+    "647": "TAO",
+    "648": "EAO",
+    "649": "AR",
+    "650": "KO",
+    "655": "ROK",
+    "656": "AK",
+    "664": "IO",
+    "667": "TR",
+    "669": "UBAO",
+    "670": "BR",
+    "672": "CO",
+    "675": "AO",
+    "677": "SR",
+    "679": "JAO",
+    "680": "KK",
+    "683": "K",
+    "685": "MO",
+    "687": "AAO",
+    "688": "KAO",
+    "689": "CAO",
+    "690": "PK",
+    "693": "SO"
+  },
+  "categorias": {
+    "ESTADO_REGION": [
+      ",O",
+      "AAO",
+      "AK",
+      "AO",
+      "AR",
+      "BO",
+      "BR",
+      "CAO",
+      "CO",
+      "CR",
+      "EAO",
+      "IO",
+      "JAO",
+      "K",
+      "KAO",
+      "KK",
+      "KO",
+      "KR",
+      "LM",
+      "LO",
+      "MER",
+      "MO",
+      "MV",
+      "NAO",
+      "NNO",
+      "NO",
+      "OO",
+      "PK",
+      "PO",
+      "RO",
+      "ROA",
+      "ROB",
+      "ROD",
+      "ROI",
+      "ROK",
+      "ROM",
+      "RONO",
+      "ROT",
+      "ROU",
+      "SK",
+      "SO",
+      "SP",
+      "SR",
+      "TAO",
+      "TO",
+      "TR",
+      "UBAO",
+      "UO",
+      "VO",
+      "YAO",
+      "YO"
+    ]
+  },
+  "rangos": {},
+  "tasas_region": {
+    ",O": {
+      "transacciones": 97,
+      "tasa_fraude": 0.0103
+    },
+    "AAO": {
+      "transacciones": 19,
+      "tasa_fraude": 0.3158
+    },
+    "AK": {
+      "transacciones": 32,
+      "tasa_fraude": 0.1562
+    },
+    "AO": {
+      "transacciones": 266,
+      "tasa_fraude": 0.0038
+    },
+    "AR": {
+      "transacciones": 134,
+      "tasa_fraude": 0.1716
+    },
+    "BO": {
+      "transacciones": 210,
+      "tasa_fraude": 0.019
+    },
+    "BR": {
+      "transacciones": 37,
+      "tasa_fraude": 0.1622
+    },
+    "CAO": {
+      "transacciones": 9,
+      "tasa_fraude": 0.4444
+    },
+    "CO": {
+      "transacciones": 304,
+      "tasa_fraude": 0.0164
+    },
+    "CR": {
+      "transacciones": 135,
+      "tasa_fraude": 0.0222
+    },
+    "EAO": {
+      "transacciones": 101,
+      "tasa_fraude": 0.0594
+    },
+    "IO": {
+      "transacciones": 110,
+      "tasa_fraude": 0.0091
+    },
+    "JAO": {
+      "transacciones": 22,
+      "tasa_fraude": 0.2727
+    },
+    "K": {
+      "transacciones": 32,
+      "tasa_fraude": 0.4062
+    },
+    "KAO": {
+      "transacciones": 50,
+      "tasa_fraude": 0.0
+    },
+    "KK": {
+      "transacciones": 22,
+      "tasa_fraude": 0.0
+    },
+    "KO": {
+      "transacciones": 82,
+      "tasa_fraude": 0.0122
+    },
+    "KR": {
+      "transacciones": 1619,
+      "tasa_fraude": 0.0124
+    },
+    "LM": {
+      "transacciones": 205,
+      "tasa_fraude": 0.0195
+    },
+    "LO": {
+      "transacciones": 234,
+      "tasa_fraude": 0.0171
+    },
+    "MER": {
+      "transacciones": 10,
+      "tasa_fraude": 0.0
+    },
+    "MO": {
+      "transacciones": 700,
+      "tasa_fraude": 0.0114
+    },
+    "MV": {
+      "transacciones": 143,
+      "tasa_fraude": 0.007
+    },
+    "NAO": {
+      "transacciones": 300,
+      "tasa_fraude": 0.01
+    },
+    "NNO": {
+      "transacciones": 29,
+      "tasa_fraude": 0.0345
+    },
+    "NO": {
+      "transacciones": 97,
+      "tasa_fraude": 0.0206
+    },
+    "OO": {
+      "transacciones": 100,
+      "tasa_fraude": 0.01
+    },
+    "PK": {
+      "transacciones": 13,
+      "tasa_fraude": 0.1538
+    },
+    "PO": {
+      "transacciones": 379,
+      "tasa_fraude": 0.0106
+    },
+    "RO": {
+      "transacciones": 18,
+      "tasa_fraude": 0.0
+    },
+    "ROA": {
+      "transacciones": 52,
+      "tasa_fraude": 0.0
+    },
+    "ROB": {
+      "transacciones": 114,
+      "tasa_fraude": 0.0263
+    },
+    "ROD": {
+      "transacciones": 16,
+      "tasa_fraude": 0.0
+    },
+    "ROI": {
+      "transacciones": 54,
+      "tasa_fraude": 0.0185
+    },
+    "ROK": {
+      "transacciones": 500,
+      "tasa_fraude": 0.018
+    },
+    "ROM": {
+      "transacciones": 184,
+      "tasa_fraude": 0.0109
+    },
+    "RONO": {
+      "transacciones": 95,
+      "tasa_fraude": 0.0
+    },
+    "ROT": {
+      "transacciones": 94,
+      "tasa_fraude": 0.0
+    },
+    "ROU": {
+      "transacciones": 28,
+      "tasa_fraude": 0.0
+    },
+    "SK": {
+      "transacciones": 179,
+      "tasa_fraude": 0.0
+    },
+    "SO": {
+      "transacciones": 229,
+      "tasa_fraude": 0.0044
+    },
+    "SP": {
+      "transacciones": 32,
+      "tasa_fraude": 0.0312
+    },
+    "SR": {
+      "transacciones": 3,
+      "tasa_fraude": 0.0
+    },
+    "TAO": {
+      "transacciones": 66,
+      "tasa_fraude": 0.0152
+    },
+    "TO": {
+      "transacciones": 79,
+      "tasa_fraude": 0.0127
+    },
+    "TR": {
+      "transacciones": 23,
+      "tasa_fraude": 0.1739
+    },
+    "UBAO": {
+      "transacciones": 24,
+      "tasa_fraude": 0.1667
+    },
+    "UO": {
+      "transacciones": 63,
+      "tasa_fraude": 0.0
+    },
+    "VO": {
+      "transacciones": 545,
+      "tasa_fraude": 0.0037
+    },
+    "YAO": {
+      "transacciones": 10,
+      "tasa_fraude": 0.1
+    },
+    "YO": {
+      "transacciones": 29,
+      "tasa_fraude": 0.0
+    }
+  },
+  "tasas_postal": {
+    "101": {
+      "transacciones": 60,
+      "tasa_fraude": 0.0167
+    },
+    "102": {
+      "transacciones": 63,
+      "tasa_fraude": 0.0
+    },
+    "103": {
+      "transacciones": 69,
+      "tasa_fraude": 0.0435
+    },
+    "104": {
+      "transacciones": 65,
+      "tasa_fraude": 0.0308
+    },
+    "105": {
+      "transacciones": 60,
+      "tasa_fraude": 0.0
+    },
+    "106": {
+      "transacciones": 73,
+      "tasa_fraude": 0.0137
+    },
+    "107": {
+      "transacciones": 66,
+      "tasa_fraude": 0.0
+    },
+    "108": {
+      "transacciones": 69,
+      "tasa_fraude": 0.0
+    },
+    "109": {
+      "transacciones": 62,
+      "tasa_fraude": 0.0
+    },
+    "110": {
+      "transacciones": 66,
+      "tasa_fraude": 0.0
+    },
+    "111": {
+      "transacciones": 56,
+      "tasa_fraude": 0.0
+    },
+    "112": {
+      "transacciones": 72,
+      "tasa_fraude": 0.0278
+    },
+    "113": {
+      "transacciones": 57,
+      "tasa_fraude": 0.0175
+    },
+    "114": {
+      "transacciones": 49,
+      "tasa_fraude": 0.0
+    },
+    "115": {
+      "transacciones": 60,
+      "tasa_fraude": 0.0167
+    },
+    "116": {
+      "transacciones": 58,
+      "tasa_fraude": 0.0172
+    },
+    "117": {
+      "transacciones": 62,
+      "tasa_fraude": 0.0161
+    },
+    "118": {
+      "transacciones": 60,
+      "tasa_fraude": 0.0167
+    },
+    "119": {
+      "transacciones": 76,
+      "tasa_fraude": 0.0263
+    },
+    "120": {
+      "transacciones": 68,
+      "tasa_fraude": 0.0147
+    },
+    "121": {
+      "transacciones": 70,
+      "tasa_fraude": 0.0143
+    },
+    "122": {
+      "transacciones": 68,
+      "tasa_fraude": 0.0
+    },
+    "123": {
+      "transacciones": 86,
+      "tasa_fraude": 0.0233
+    },
+    "124": {
+      "transacciones": 62,
+      "tasa_fraude": 0.0
+    },
+    "125": {
+      "transacciones": 62,
+      "tasa_fraude": 0.0
+    },
+    "127": {
+      "transacciones": 101,
+      "tasa_fraude": 0.0099
+    },
+    "128": {
+      "transacciones": 104,
+      "tasa_fraude": 0.0288
+    },
+    "150": {
+      "transacciones": 12,
+      "tasa_fraude": 0.0
+    },
+    "151": {
+      "transacciones": 17,
+      "tasa_fraude": 0.0
+    },
+    "166": {
+      "transacciones": 300,
+      "tasa_fraude": 0.01
+    },
+    "190": {
+      "transacciones": 2,
+      "tasa_fraude": 0.0
+    },
+    "191": {
+      "transacciones": 4,
+      "tasa_fraude": 0.0
+    },
+    "192": {
+      "transacciones": 4,
+      "tasa_fraude": 0.0
+    },
+    "193": {
+      "transacciones": 4,
+      "tasa_fraude": 0.25
+    },
+    "194": {
+      "transacciones": 2,
+      "tasa_fraude": 0.0
+    },
+    "195": {
+      "transacciones": 6,
+      "tasa_fraude": 0.0
+    },
+    "196": {
+      "transacciones": 4,
+      "tasa_fraude": 0.0
+    },
+    "197": {
+      "transacciones": 2,
+      "tasa_fraude": 0.0
+    },
+    "198": {
+      "transacciones": 4,
+      "tasa_fraude": 0.0
+    },
+    "308": {
+      "transacciones": 210,
+      "tasa_fraude": 0.019
+    },
+    "355": {
+      "transacciones": 90,
+      "tasa_fraude": 0.0
+    },
+    "356": {
+      "transacciones": 89,
+      "tasa_fraude": 0.0
+    },
+    "362": {
+      "transacciones": 95,
+      "tasa_fraude": 0.0
+    },
+    "367": {
+      "transacciones": 16,
+      "tasa_fraude": 0.0
+    },
+    "369": {
+      "transacciones": 143,
+      "tasa_fraude": 0.007
+    },
+    "385": {
+      "transacciones": 52,
+      "tasa_fraude": 0.0
+    },
+    "386": {
+      "transacciones": 54,
+      "tasa_fraude": 0.0185
+    },
+    "390": {
+      "transacciones": 18,
+      "tasa_fraude": 0.0
+    },
+    "398": {
+      "transacciones": 234,
+      "tasa_fraude": 0.0171
+    },
+    "420": {
+      "transacciones": 94,
+      "tasa_fraude": 0.0
+    },
+    "424": {
+      "transacciones": 10,
+      "tasa_fraude": 0.0
+    },
+    "426": {
+      "transacciones": 28,
+      "tasa_fraude": 0.0
+    },
+    "428": {
+      "transacciones": 135,
+      "tasa_fraude": 0.0222
+    },
+    "430": {
+      "transacciones": 184,
+      "tasa_fraude": 0.0109
+    },
+    "432": {
+      "transacciones": 63,
+      "tasa_fraude": 0.0
+    },
+    "450": {
+      "transacciones": 38,
+      "tasa_fraude": 0.0
+    },
+    "452": {
+      "transacciones": 33,
+      "tasa_fraude": 0.0606
+    },
+    "453": {
+      "transacciones": 43,
+      "tasa_fraude": 0.0233
+    },
+    "600": {
+      "transacciones": 167,
+      "tasa_fraude": 0.006
+    },
+    "601": {
+      "transacciones": 209,
+      "tasa_fraude": 0.0048
+    },
+    "602": {
+      "transacciones": 169,
+      "tasa_fraude": 0.0
+    },
+    "603": {
+      "transacciones": 8,
+      "tasa_fraude": 0.0
+    },
+    "606": {
+      "transacciones": 12,
+      "tasa_fraude": 0.0833
+    },
+    "607": {
+      "transacciones": 9,
+      "tasa_fraude": 0.0
+    },
+    "614": {
+      "transacciones": 379,
+      "tasa_fraude": 0.0106
+    },
+    "625": {
+      "transacciones": 79,
+      "tasa_fraude": 0.0127
+    },
+    "629": {
+      "transacciones": 10,
+      "tasa_fraude": 0.1
+    },
+    "630": {
+      "transacciones": 97,
+      "tasa_fraude": 0.0206
+    },
+    "634": {
+      "transacciones": 97,
+      "tasa_fraude": 0.0103
+    },
+    "644": {
+      "transacciones": 100,
+      "tasa_fraude": 0.01
+    },
+    "647": {
+      "transacciones": 66,
+      "tasa_fraude": 0.0152
+    },
+    "648": {
+      "transacciones": 101,
+      "tasa_fraude": 0.0594
+    },
+    "649": {
+      "transacciones": 134,
+      "tasa_fraude": 0.1716
+    },
+    "650": {
+      "transacciones": 82,
+      "tasa_fraude": 0.0122
+    },
+    "655": {
+      "transacciones": 500,
+      "tasa_fraude": 0.018
+    },
+    "656": {
+      "transacciones": 32,
+      "tasa_fraude": 0.1562
+    },
+    "664": {
+      "transacciones": 110,
+      "tasa_fraude": 0.0091
+    },
+    "667": {
+      "transacciones": 23,
+      "tasa_fraude": 0.1739
+    },
+    "669": {
+      "transacciones": 24,
+      "tasa_fraude": 0.1667
+    },
+    "670": {
+      "transacciones": 37,
+      "tasa_fraude": 0.1622
+    },
+    "672": {
+      "transacciones": 304,
+      "tasa_fraude": 0.0164
+    },
+    "675": {
+      "transacciones": 266,
+      "tasa_fraude": 0.0038
+    },
+    "677": {
+      "transacciones": 3,
+      "tasa_fraude": 0.0
+    },
+    "679": {
+      "transacciones": 22,
+      "tasa_fraude": 0.2727
+    },
+    "680": {
+      "transacciones": 22,
+      "tasa_fraude": 0.0
+    },
+    "683": {
+      "transacciones": 32,
+      "tasa_fraude": 0.4062
+    },
+    "685": {
+      "transacciones": 700,
+      "tasa_fraude": 0.0114
+    },
+    "687": {
+      "transacciones": 19,
+      "tasa_fraude": 0.3158
+    },
+    "688": {
+      "transacciones": 50,
+      "tasa_fraude": 0.0
+    },
+    "689": {
+      "transacciones": 9,
+      "tasa_fraude": 0.4444
+    },
+    "690": {
+      "transacciones": 13,
+      "tasa_fraude": 0.1538
+    },
+    "693": {
+      "transacciones": 229,
+      "tasa_fraude": 0.0044
+    }
+  },
+  "tasa_fraude_global": 0.0208,
+  "metricas_test": {
+    "Accuracy": 0.9541,
+    "Precision": 0.2222,
+    "Sensitivity": 0.4878,
+    "F-Score": 0.3053,
+    "Specificity": 0.964,
+    "ROC-AUC": 0.8162
+  },
+  "metricas_kfold_promedio": {
+    "Accuracy": 0.9519,
+    "Precision": 0.1938,
+    "Sensitivity": 0.4061,
+    "F-Score": 0.2614,
+    "Specificity": 0.9635,
+    "ROC-AUC": 0.7262
+  },
+  "metricas_kfold_desv": {
+    "Accuracy": 0.0067,
+    "Precision": 0.0524,
+    "Sensitivity": 0.1063,
+    "F-Score": 0.0666,
+    "Specificity": 0.006,
+    "ROC-AUC": 0.0641
+  },
+  "comparacion_modelos": {
+    "Regresión Logística": {
+      "Accuracy": 0.9052,
+      "Precision": 0.1343,
+      "Sensitivity": 0.6585,
+      "F-Score": 0.2231,
+      "Specificity": 0.9104,
+      "ROC-AUC": 0.8162,
+      "AUC validación (train CV)": 0.7262
+    },
+    "Árbol de Decisión": {
+      "Accuracy": 0.9052,
+      "Precision": 0.1343,
+      "Sensitivity": 0.6585,
+      "F-Score": 0.2231,
+      "Specificity": 0.9104,
+      "ROC-AUC": 0.8095,
+      "AUC validación (train CV)": 0.721
+    },
+    "Random Forest": {
+      "Accuracy": 0.9062,
+      "Precision": 0.1357,
+      "Sensitivity": 0.6585,
+      "F-Score": 0.225,
+      "Specificity": 0.9114,
+      "ROC-AUC": 0.8028,
+      "AUC validación (train CV)": 0.7262
+    },
+    "Gradient Boosting": {
+      "Accuracy": 0.9228,
+      "Precision": 0.1627,
+      "Sensitivity": 0.6585,
+      "F-Score": 0.2609,
+      "Specificity": 0.9284,
+      "ROC-AUC": 0.8176,
+      "AUC validación (train CV)": 0.7233
+    }
+  },
+  "n_train": 7928,
+  "n_test": 1983,
+  "version_sklearn": "1.9.1"
+}

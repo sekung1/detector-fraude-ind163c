@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Detector de Fraude{% endblock %} · IND163C</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='img/escudo.svg') }}" type="image/svg+xml">
+</head>
+<body>
+  <header class="barra">
+    <div class="contenedor barra-interior">
+      <a class="marca" href="{{ url_for('inicio') }}">
+        <img src="{{ url_for('static', filename='img/escudo.svg') }}" alt="" width="28" height="28">
+        <span>Detector de Fraude</span>
+      </a>
+      <nav>
+        <a href="{{ url_for('inicio') }}" class="{{ 'activo' if request.endpoint in ['inicio', 'predecir_transaccion'] }}">Predicción</a>
+        <a href="{{ url_for('lote') }}" class="{{ 'activo' if request.endpoint == 'lote' }}">Por lote</a>
+        <a href="{{ url_for('modelo') }}" class="{{ 'activo' if request.endpoint == 'modelo' }}">El modelo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="contenedor">
+    {% block contenido %}{% endblock %}
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      Proyecto Semestral IND163C – Análisis de Negocios · USM 2026-02 ·
+      Modelo: {{ meta.modelo }} · Umbral {{ '%.0f' % (meta.umbral * 100) }}/100
+    </div>
+  </footer>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
