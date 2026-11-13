@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: detector-fraude-ind163c
+    runtime: python
+    plan: free
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    healthCheckPath: /health
+    autoDeploy: true
