@@ -3,7 +3,10 @@
 Proyecto Semestral de **IND163C – Análisis de Negocios** (USM, 2026-02).
 Es una aplicación web en Flask que usa un modelo de clasificación para estimar el riesgo de que una transacción digital sea fraudulenta, **antes de autorizar el pago**.
 
-**Aplicación publicada:** _(se completa al desplegar en Render)_
+**Aplicación publicada:** https://detector-fraude-ind163c.onrender.com
+**Repositorio:** https://github.com/sekung1/detector-fraude-ind163c
+
+> En el plan gratuito de Render la aplicación se suspende tras 15 minutos sin uso; la primera visita después puede tardar ~1 minuto en cargar.
 
 ## Objetivo y problema de negocio
 
