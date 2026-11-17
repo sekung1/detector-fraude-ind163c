@@ -63,10 +63,12 @@ def lote():
         return render_template("lote.html", max_filas=MAX_FILAS_LOTE, columnas=_columnas_lote(), error=str(e)), 400
 
     resultados = predecir(df_modelo)
-    salida = original.copy()
-    salida["PUNTAJE_RIESGO"] = [round(r["puntaje"] * 100, 1) for r in resultados]
-    salida["PREDICCION"] = [r["decision"] for r in resultados]
-    salida["RIESGO"] = [r["riesgo"] for r in resultados]
+    # Las columnas del resultado van primero para que se vean sin desplazar la tabla.
+    columnas_resultado = ["PUNTAJE_RIESGO", "PREDICCION", "RIESGO"]
+    salida = original.drop(columns=columnas_resultado, errors="ignore")
+    salida.insert(0, "RIESGO", [r["riesgo"] for r in resultados])
+    salida.insert(0, "PREDICCION", [r["decision"] for r in resultados])
+    salida.insert(0, "PUNTAJE_RIESGO", [round(r["puntaje"] * 100, 1) for r in resultados])
     # El CSV se entrega dentro de la misma página (data URI) para no guardar datos en el servidor.
     csv_b64 = base64.b64encode(salida.to_csv(index=False).encode("utf-8-sig")).decode("ascii")
 
