@@ -131,9 +131,11 @@ El repositorio no contiene contraseñas, tokens ni credenciales.
 
 ## Integrantes
 
-| Integrante | Rol USM | Rol en el proyecto |
-|---|---|---|
-| Martín López | 202241516-9 | _(por definir)_ |
-| Constanza Donoso | 202260554-5 | _(por definir)_ |
-| Nicolás Araya | 202260596-0 | _(por definir)_ |
-| Antonio Quinteros | _(pendiente)_ | _(por definir)_ |
+Grupo N.º 1
+
+| Integrante | Rol USM |
+|---|---|
+| Martín López | 202241516-9 |
+| Constanza Donoso | 202260554-5 |
+| Nicolás Araya | 202260596-0 |
+| Antonio Quinteros | 202204576-0 |
